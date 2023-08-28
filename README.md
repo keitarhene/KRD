@@ -5,8 +5,8 @@ Welcome to Plot 13 Restaurant E-Commerce Platform! This project aims to provide 
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/plot-13-restaurant.git`
-2. Navigate to the project directory: `cd plot-13-restaurant`
+1. Clone the repository: `git clone https://github.com/keitarhene/KRD.git`
+2. Navigate to the project directory: `cd KRD`
 3. Create and activate a virtual environment: `python3 -m venv venv` and `source venv/bin/activate` (Linux/macOS) or `venv\Scripts\activate` (Windows)
 4. the virtual environment `env` was created in the project file during project testing
 5. Install dependencies: `pip install -r requirements.txt`
