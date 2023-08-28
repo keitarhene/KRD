@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div>
+    <br>
+</div>
+
+<div class="intro">
+		
+    <h4 class="header">Login
+        <a class="nav-link" href="static\images\logo.png">
+            <img class="logo-placemengt" src="static\images\logo.png" alt="Logo">
+        </a>
+    </h4>
+
+    <form>
+        
+ 
+         <div class="form-group">
+           <label for="exampleInputEmail1">Username</label>
+           <input type="text" class="form-control"
+           name="username" aria-describedby="emailHelp" placeholder="username">
+         </div>
+         <div class="form-group">
+           <label for="exampleInputPassword1">Password</label>
+           <input type="password" class="form-control" name="password" placeholder="Password">
+         </div>
+     
+         <input type="submit"
+         value="Login" class="btn btn-secondary">
+ 
+     </form>
+ 
+
+</div>
+
+<div>
+    <br>
+</div>
+{% endblock %}
+
+</html>

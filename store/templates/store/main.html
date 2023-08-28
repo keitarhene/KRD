@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Plot13 - Restaurant</title>
+
+	<!--link rel="rel" href="favicon.ico"-->
+	<link rel="icon" type="image/x-icon" href="logofav/favicon.ico">
+
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+	
+	<script type="text/javascript">
+		var user = '{{request.user}}'
+
+		function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+
+		function getCookie(name) {
+		    // Split cookie string and get all individual name=value pairs in an array
+		    var cookieArr = document.cookie.split(";");
+
+		    // Loop through the array elements
+		    for(var i = 0; i < cookieArr.length; i++) {
+		        var cookiePair = cookieArr[i].split("=");
+
+		        /* Removing whitespace at the beginning of the cookie name
+		        and compare it with the given string */
+		        if(name == cookiePair[0].trim()) {
+		            // Decode the cookie value and return
+		            return decodeURIComponent(cookiePair[1]);
+		        }
+		    }
+
+		    // Return null if not found
+		    return null;
+		}
+		var cart = JSON.parse(getCookie('cart'))
+
+		if (cart == undefined){
+			cart = {}
+			console.log('Cart Created!', cart)
+			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+		}
+		console.log('Cart:', cart)
+	
+	</script>
+
+	{% block head-css %}
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<!--link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"-->
+    {% endblock %}
+
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  
+		<a class="navbar-brand" href="{% url 'store' %}"><strong>
+			
+			<a   style="color: black;" class="nav-link" href="static\images\logo.png">
+				<img class="logo-placemengt" src="static\images\logo.png" alt="Logo">
+				Plot13 Restaurant
+			</a>
+		</strong></a>
+	  
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    	<span class="navbar-toggler-icon"></span>
+	  	</button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+	        <a class="nav-link" href="{% url 'store' %}">Home<span class="sr-only">(current)</span></a>
+	      </li>
+		  <li class="nav-item active">
+	        <a class="nav-link" href="{% url 'store' %}">Shopping<span class="sr-only">(current)</span></a>
+	      </li>
+		  <li class="nav-item active">
+	        <a class="nav-link" href="{% url 'cart' %}">Cart<span class="sr-only">(current)</span></a>
+	      </li>
+		  <li class="nav-item active">
+	        <a class="nav-link" href="{% url 'checkout' %}">Checkout<span class="sr-only">(current)</span></a>
+	      </li>
+
+		  <li class="nav-item active">
+	        <a class="nav-link" href="{% url 'login' %}">Login<span class="sr-only">(current)</span></a>
+			<!--	corresponds to the path in urls.py in members app	-->
+	      </li>
+	 
+	    </ul>
+	    <div class="form-inline my-2 my-lg-0">
+			
+	     	<!--a href="#"class="btn btn-warning">Login</a-->
+
+			<!--button class="btn-log">
+				<a href="#" class="btn-login">Login</a>
+			</button-->
+	     	
+	     	<a href="{% url 'cart' %}">
+	    		<img  id="cart-icon" src="{% static 'images/cart.png' %}">
+	    	</a>
+
+	    	<p id="cart-total">{{cartItems}}</p>
+
+	    </div>
+	  </div>
+	</nav>
+
+	<div class="intro">
+		
+		<h4 class="header">Plot13 Restaurant
+			<a class="nav-link" href="static\images\logo.png">
+				<img class="logo-placemengt" src="static\images\logo.png" alt="Logo">
+			</a>
+		</h4>
+
+		<p class="intro-start">We are ready to delivery at your door step</p>
+
+		<p class="intro-ends">Shop Your Favorite meal with us</p>
+
+	</div>
+
+    <div class="container">
+
+		{% block content %}
+
+
+		{% endblock content %}
+    </div>
+
+	<div>
+		<br>
+	</div>
+
+	<!--footer-->
+	
+	<section class="footer-distributed">
+		
+            <footer>
+
+                <div class="footer-left">
+                    <h3 class="footer-head">
+						<strong>Plot 13 Restaurant</strong>
+					</h3>
+					<!--logo-->
+                    <p class="footer-links">
+                        
+                        <ul class="footer-links-u">
+							<li ><a class="nav-link" href="{% url 'store' %}">Home</a></li>
+							<li class="footer-link">
+								<a class="nav-link" href="{% url 'store' %}">Shopping</a>
+							</li>
+							<li class="footer-link">
+								<a class="nav-link" href="{% url 'cart' %}">Cart</a>
+							</li>
+							<li class="footer-link">
+								<a class="nav-link" href="{% url 'checkout' %}"><i class="italic">Checkout</i></a>
+							</li>
+						</ul>
+						<div>
+							<br>
+						</div>
+										
+						<div class="footer-center">
+							<div>
+								<h3 class="footer-head">
+									<strong>Location</strong>
+								</h3>
+							</div>
+		
+							<div class="footer-locate">
+								<ol>
+									
+									<i class="fa fa-map-marker"></i><strong style="color: black;">Mbarara, Western Uganda</strong>
+									<br>
+									<a href="+256712345678" style="color: black;">
+										<i class="fa fa-phone"></i><phone>+256712345678</phone>
+									</a><br>		
+									<a href="mailto:keitarhene@gmail.com" style="color: black;">
+										<i class="fa fa-envelope"></i>plot13restaurant@gmail.com
+									</a>
+										
+								</ol>
+							</div>
+		
+						</div>
+		
+
+                    </p>
+                    
+                    <div class="point">
+
+                    </div>
+                    <br>
+                    
+                </div>
+
+                <div class="footer-right" >
+					<h3>
+						<strong class="footer-about">About the store</strong>
+					</h3><br>
+                    <p class="footer-company-about">                     			
+						The Bar and Restaurant got you classic foods 
+						and drinks. We are based in the heart of
+						Mbarara City, to serve you a delicious meal
+						and Quench your thirst at affordable rates.
+						
+						Visit Plot13 and enjoy the best
+                    </p><br>
+
+					<p class="motto">Healthy Living</p>
+					
+                </div>
+
+				<div class="footer-icons">
+
+					<a href="https://facebook.com/keita">
+						<strong>
+							<i class="fa fa-facebook-square"></i>
+								weareplot13
+						</strong><br>
+					</a>
+
+					<a href="https://instagram.com/keita">
+						<strong>
+							<i class="fa fa-instagram"></i>
+								weareplot13
+						</strong><br>
+					
+					<a href="https://twitter.com/keita">
+						
+						 <strong>
+							<i style="font-size: 25px;">
+								<svg viewBox="0 0 300 300" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width: 1.0em; height: 1.0em;">
+									<path d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"></path>
+								 </svg>
+							</i>
+								weareplot13
+						</strong>
+						 <br>
+					</a>
+
+					<a href="https://github.com/keita">
+						<strong>
+							<i class="fa">&#xf092;</i>
+								KRD
+						</strong>
+						<br>
+					</a>		
+					
+				</div>
+
+
+				<div class="copyright">
+					<p class="footer-company-name"> © KRD 2023</p>
+				</div>
+            </footer>
+
+    </section>
+	
+	{% block head-javascript %}
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		
+	{% endblock %}
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+</body>
+
+</html>
