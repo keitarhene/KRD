@@ -1,4 +1,4 @@
-# ecommerce
+# E-commerce platform 
 # Plot 13 Restaurant E-Commerce Platform
 
 Welcome to Plot 13 Restaurant E-Commerce Platform! This project aims to provide a seamless online ordering experience for our restaurant customers.
